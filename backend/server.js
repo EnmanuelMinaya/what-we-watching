@@ -14,6 +14,10 @@ app.get('/', (req, res) => res.send("Server is ready"));
 app.use(notFound);
 app.use(errorHandler);
 
+console.log(process.env.DATABASE_URL);
+console.log(process.env.process.env.NODE_ENV);
+
+
 app.listen(port, () => console.log(`Server started on port ${port}`));
 
 
