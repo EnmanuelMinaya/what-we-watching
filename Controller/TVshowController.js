@@ -7,9 +7,12 @@ dotenv.config();
 //POST api/TVshow/search
 //public access
 const addToList = asyncHandler(async (req, res) => {
-
-
-    const url = 'https://api.themoviedb.org/3/search/tv?query=succ';
+    const { query } = req.query;
+    if (!query) {
+        res.status(400);
+        throw Error('Query parameter required');
+    }
+    const url = `https://api.themoviedb.org/3/search/tv?query=${query}`;
     const options = {
         method: 'GET',
         headers: {
@@ -19,11 +22,10 @@ const addToList = asyncHandler(async (req, res) => {
     };
 
     fetch(url, options)
-        .then(res => res.json())//al parecer aqui se esta agregando el json en la respuesta pero no se ve en postman, cuando se a la URL postman no termina de cargar
-        .then(json => console.log(json))
+        .then(res => res.json())
+        .then(json => res.send(json))
         .catch(err => console.error('error:' + err));
 
-    return res.status(200)
 });
 
 export {
