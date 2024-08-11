@@ -2,18 +2,21 @@ import jwt from 'jsonwebtoken';
 import expressAsyncHandler from 'express-async-handler';
 import { PrismaClient } from '@prisma/client';
 
+const prisma = new PrismaClient()
+
 const protect = expressAsyncHandler(async (req, res, next) => {
     let token = req.cookies.jwt;
 
     if (token) {
         try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            let { userId } = jwt.verify(token, process.env.JWT_SECRET);
+            const id = Number(userId);
             req.user = await prisma.user.findUnique({
                 omit: {
-                    password: true,
+                    password,
                 },
                 where: {
-                    id: decoded.userId,
+                    id: id,
                 },
             });
             next();

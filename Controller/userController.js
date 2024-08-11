@@ -95,6 +95,7 @@ const registerUser = asyncHandler(async (req, res) => {
             email: email,
         },
     });
+    console.log(userExists);
     if (userExists) {
         throw new Error('User already exists');
     }
