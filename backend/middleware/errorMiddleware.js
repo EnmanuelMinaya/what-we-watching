@@ -1,3 +1,6 @@
+
+
+
 const notFound = (req, res, next) => {
     const error = new Error(`Not found - ${req.OriginalUrl}`);
     res.status(404);
@@ -13,7 +16,7 @@ const errorHandler = (err, req, res, next) => {
 
     if (err.Name === 'CastError' && err.kind === 'objectId') {
         statusCode = 404;
-        message = 'Resorce not found'
+        message = 'Resource not found'
     }
 
     res.status(statusCode).json({

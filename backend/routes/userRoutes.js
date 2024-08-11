@@ -17,7 +17,7 @@ router.post('/register', registerUser);
 router.post('/logout', logout);
 router.get('/profile', protect, getUserProfile);
 router.put('/profile', protect, updateUserProfile);
-router.post('/changePassword', changePassword);
+router.post('/changePassword', protect, changePassword);
 
 
 export default router;

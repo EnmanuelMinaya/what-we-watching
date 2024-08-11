@@ -3,14 +3,12 @@ import expressAsyncHandler from 'express-async-handler';
 import { PrismaClient } from '@prisma/client';
 
 const protect = expressAsyncHandler(async (req, res, next) => {
-    let token;
-
-    token = req.cookies.jwt;
+    let token = req.cookies.jwt;
 
     if (token) {
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            req.user = await await prisma.user.findUnique({
+            req.user = await prisma.user.findUnique({
                 omit: {
                     password: true,
                 },
@@ -21,14 +19,14 @@ const protect = expressAsyncHandler(async (req, res, next) => {
             next();
         } catch (error) {
             res.status(401);
-            throw new Error('Not authorized, invalid token')
+            throw new Error('Not authorized, invalid token');
         }
 
     } else {
         res.status(401);
-        throw new Error('Not authorized')
+        throw new Error('Not authorized');
     }
 
-})
+});
 
 export { protect };
