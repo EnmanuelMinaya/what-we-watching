@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["omitApi"]
 }
 
@@ -9,41 +9,33 @@ datasource db {
 }
 
 model User {
-  id          Int       @id @default(autoincrement())
-  name        String    
-  email       String    @unique
-  password    String
-  profilePic  String?
-  registrationDate DateTime @default(now())
-  watchlist   Watchlist[]
-  followedBy User[]  @relation("UserFollows")
-  following  User[]  @relation("UserFollows")
+  id               Int         @id @default(autoincrement())
+  name             String
+  email            String      @unique
+  password         String
+  profilePic       String?
+  registrationDate DateTime    @default(now())
+  watchlist        Watchlist[]
+  followedBy       User[]      @relation("UserFollows")
+  following        User[]      @relation("UserFollows")
 }
 
-model TVShow {
-  id            Int      @id @default(autoincrement())
+model Show {
+  id            Int         @id @default(autoincrement())
   title         String
   description   String
   genre         String
   releaseDate   DateTime
   numSeasons    Int
   averageRating Float
-
-  // Define the Watchlist relationship
-  watchlist Watchlist[]
+  watchlist     Watchlist[]
 }
 
 model Watchlist {
-  id            Int       @id @default(autoincrement())
-  status        String
-  lastWatchedEpisode Int
-  dateAdded     DateTime  @default(now())
-  // Define the User foreign key
-  user          User      @relation(fields: [userId], references: [id])
-  userId        Int
-  // Define the TVShow foreign key
-  tvShow        TVShow    @relation(fields: [showId], references: [id])
-  showId        Int
+  id           Int      @id @default(autoincrement())
+  name         String
+  visibility   String
+  creationDate DateTime @default(now())
+  user         User[]
+  Show         Show[]
 }
-
-
