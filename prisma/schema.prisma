@@ -9,33 +9,34 @@ datasource db {
 }
 
 model User {
-  id               Int         @id @default(autoincrement())
+  id               Int        @id @default(autoincrement())
   name             String
-  email            String      @unique
+  email            String     @unique
   password         String
   profilePic       String?
-  registrationDate DateTime    @default(now())
-  watchlist        Watchlist[]
-  followedBy       User[]      @relation("UserFollows")
-  following        User[]      @relation("UserFollows")
+  registrationDate DateTime   @default(now())
+  showLists        ShowList[]
+  followedBy       User[]     @relation("UserFollows")
+  following        User[]     @relation("UserFollows")
 }
 
 model Show {
-  id            Int         @id @default(autoincrement())
+  id            Int        @id @default(autoincrement())
   title         String
   description   String
   genre         String
   releaseDate   DateTime
   numSeasons    Int
   averageRating Float
-  watchlist     Watchlist[]
+  showList      ShowList[]
 }
 
-model Watchlist {
+model ShowList {
   id           Int      @id @default(autoincrement())
   name         String
   visibility   String
   creationDate DateTime @default(now())
-  user         User[]
+  author       User     @relation(fields: [authorId], references: [id])
+  authorId     Int
   Show         Show[]
 }

@@ -13,7 +13,7 @@ const protect = expressAsyncHandler(async (req, res, next) => {
             const id = Number(userId);
             req.user = await prisma.user.findUnique({
                 omit: {
-                    password,
+                    password: true,
                 },
                 where: {
                     id: id,
@@ -21,6 +21,7 @@ const protect = expressAsyncHandler(async (req, res, next) => {
             });
             next();
         } catch (error) {
+            console.log(error);
             res.status(401);
             throw new Error('Not authorized, invalid token');
         }
