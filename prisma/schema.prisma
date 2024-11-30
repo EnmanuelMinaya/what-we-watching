@@ -22,7 +22,9 @@ model User {
 
 model Show {
   id            Int        @id @default(autoincrement())
+  api_id        Int
   title         String
+  profile_path  String
   description   String
   genre         String
   releaseDate   DateTime

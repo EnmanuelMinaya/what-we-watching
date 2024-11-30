@@ -1,10 +1,10 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import { notFound, errorHandler } from './middleware/errorMiddleware.js';
+import cookieParser from 'cookie-parser';
 import userRoutes from './routes/userRoutes.js';
 import showListRoutes from './routes/showListRoutes.js';
-import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import TVshowRoutes from './routes/TVshowRoutes.js';
-import cookieParser from 'cookie-parser';
 dotenv.config();
 
 const port = process.env.PORT || 5000;

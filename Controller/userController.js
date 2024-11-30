@@ -17,22 +17,20 @@ const authUser = asyncHandler(async (req, res) => {
         },
     });
     if (user) {
-        bcrypt.compare(password, user.password, function (err, result) {
-            if (err) {
-                throw new Error('invalid credentials');
-            }
-            if (result === true) {
-                generateToken(res, user.id) //trying to login user 
-                res.status(200).json({
-                    id: user.id,
-                    name: user.name,
-                    email: user.email,
-                    result: result
-                });
-            } else {
-                throw new Error('Invalid credentials');
-            }
-        });
+        const result = await bcrypt.compare(password, user.password);
+        if (result) {
+            generateToken(res, user.id) //trying to login user 
+            res.status(200).json({
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                result: result
+            });
+        } else {
+            throw new Error('Invalid credentials');
+        }
+    } else {
+        throw new Error('Invalid credentials');
     }
 });
 

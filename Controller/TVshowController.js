@@ -5,8 +5,9 @@ import fetch from 'node-fetch';
 dotenv.config();
 
 //POST api/TVshow/search
+//search
 //public access
-const addToList = asyncHandler(async (req, res) => {
+const search = asyncHandler(async (req, res) => {
     const { query } = req.query;
     if (!query) {
         res.status(400);
@@ -28,6 +29,8 @@ const addToList = asyncHandler(async (req, res) => {
 
 });
 
+
+
 export {
-    addToList,
+    search
 };

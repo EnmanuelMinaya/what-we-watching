@@ -1,7 +1,7 @@
 import express from 'express';
 import {
     addToList,
-} from '../../Controller/TVshowController.js';
+} from '../../Controller/showListController.js';
 
 
 const router = express.Router();
